@@ -227,10 +227,7 @@ public class iniParser {
 	/// </summary>
 	/// <param name="file">The file name.</param>
 	public void Load(IniFiles file){
-		keys = new ArrayList();
-		vals = new ArrayList();
-		comments = new ArrayList();
-		subSections = new ArrayList();
+		Clear();
 
 		string line = "", dir = Application.dataPath +"/"+ file +".ini", catagory = "";
 		int offset = 0, comment = 0, subcat = 0;
