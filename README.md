@@ -75,13 +75,13 @@ Lastly, You can now Clear the current instance of all keys and values so you can
 If i wanted to create a settings file for example i would do:  
  
     iniParser parser = new iniParser();
-    parser.Set("resolution","graphics","1920x1080");
-    parser.Set("antiAlias","graphics","8","Can only be: 0, 1, 2, 4, 8");
-    parser.Set("UncatagorizedKey1","","1","Keys can be created without sections and will be displayed that the top");
-    parser.Set("UncatagorizedKey2","","2","Sections are sorted by name, Keys are not");
-    parser.Set("mode","audio","sterio");
-    parser.Set("masterLevel","audio","100","Can only be 0 - 100");
-    parser.Set("musicLevel","audio","75");
+    parser.Set("graphics","resolution","1920x1080");
+    parser.Set("graphics","antiAlias","8","Can only be: 0, 1, 2, 4, 8");
+    parser.Set("","UncatagorizedKey1","1","Keys can be created without sections and will be displayed that the top");
+    parser.Set("","UncatagorizedKey2","2","Sections are sorted by name, Keys are not");
+    parser.Set("audio","mode","sterio");
+    parser.Set("audio","masterLevel","100","Can only be 0 - 100");
+    parser.Set("audio","musicLevel","75");
     parser.Save(IniFiles.SETTINGS);
     
 And the output file will look like:

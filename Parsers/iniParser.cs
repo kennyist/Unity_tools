@@ -56,8 +56,8 @@ public class iniParser {
 	/// <summary>
 	/// Set the variable and value if they dont exist. Updates the variables value if does exist.
 	/// </summary>
-	/// <param name="key">The variable name</param>
 	/// <param name="subSection">The Section this key belongs to</param>
+	/// <param name="key">The variable name</param
 	/// <param name="val">The value of the variable</param>
 	public void Set(string subSection, string key, string value){
 		for(int i = 0; i < keys.Count; i++){
@@ -77,8 +77,8 @@ public class iniParser {
 	/// <summary>
 	/// Set the variable and value if they dont exist including a comment. Updates the variables value and comment if does exist.
 	/// </summary>
-	/// <param name="key">The variable name</param>
 	/// <param name="subSection">The Section this key belongs to</param>
+	/// <param name="key">The variable name</param>
 	/// <param name="val">The value of the variable</param>
 	/// <param name="comment">The comment of the variable</param>
 	public void Set(string subSection, string key, string value, string comment){
@@ -113,8 +113,8 @@ public class iniParser {
 	/// <summary>
 	/// Get the specified key from a subSection. For use if you need to use the same name in differant sections.
 	/// </summary>
-	/// <param name="key">Key.</param>
 	/// <param name="subSection">Sub section.</param>
+	/// <param name="key">Key.</param>
 	public string Get(string subSection, string key){
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key) && subSections[i].Equals(subSection)){
@@ -165,9 +165,9 @@ public class iniParser {
 	/// <summary>
 	/// Remove the specified key from the specified subSection.
 	/// </summary>
-	/// <param name="key">The key name</param>
 	/// <param name="subSection">Sub section name.</param>
-	public void Remove( string subSection, string key){
+	/// <param name="key">The key name</param>
+	public void Remove(string subSection, string key){
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key) && subSections[i].Equals(subSection)){
 				subSections.RemoveAt(i);
