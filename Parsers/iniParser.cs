@@ -30,6 +30,8 @@ public class iniParser {
 	private ArrayList comments = new ArrayList();
 	private ArrayList subSections =  new ArrayList();
 
+	private int commentMargin = 60; // How many characters from the line start should the comment show
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="iniParser"/> class without loading a file.
 	/// </summary>
@@ -83,8 +85,8 @@ public class iniParser {
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key)){
 				vals[i] = value;
-				comments[i] = comment;
 				subSections[i] = subSection;
+				comments[i] = comment;
 				return;
 			}
 		}
@@ -161,6 +163,24 @@ public class iniParser {
 	}
 
 	/// <summary>
+	/// Remove the specified key from the specified subSection.
+	/// </summary>
+	/// <param name="key">The key name</param>
+	/// <param name="subSection">Sub section name.</param>
+	public void Remove(string key, string subSection){
+		for(int i = 0; i < keys.Count; i++){
+			if(keys[i].Equals(key) && subSections[i].Equals(subSection)){
+				subSections.RemoveAt(i);
+				keys.RemoveAt(i);
+				vals.RemoveAt(i);
+				comments.RemoveAt(i);
+				return;
+			}
+		}
+		Debug.LogError("Key not found");
+	}
+
+	/// <summary>
 	/// Save the specified file.
 	/// </summary>
 	/// <param name="file">The file name.</param>
@@ -173,10 +193,7 @@ public class iniParser {
 			}
 		}
 		noDup.Sort();
-		ArrayList keysC = keys;
-		ArrayList valsC = vals;
-		ArrayList comsC = comments;
-		ArrayList subsC = subSections;
+		ArrayList keysC = keys, valsC = vals, comsC = comments, subsC = subSections;
 		for(int i = 0; i < noDup.Count; i++){
 			int cur = 0;
 			while(subsC.Contains(noDup[i])){
@@ -188,7 +205,7 @@ public class iniParser {
 				}
 				if(!comsC[pos].Equals("")){
 					string p1 = keysC[pos]+"="+valsC[pos];
-					int tabs = (60 - p1.Length) / 4;
+					int tabs = (commentMargin - p1.Length) / 4;
 					wr.WriteLine(p1 + new string('\t', tabs) +"; "+comsC[pos]);
 				} else {
 					wr.WriteLine(keysC[pos]+"="+valsC[pos]);
@@ -213,6 +230,7 @@ public class iniParser {
 		keys = new ArrayList();
 		vals = new ArrayList();
 		comments = new ArrayList();
+		subSections = new ArrayList();
 
 		string line = "", dir = Application.dataPath +"/"+ file +".ini", catagory = "";
 		int offset = 0, comment = 0, subcat = 0;
@@ -243,6 +261,16 @@ public class iniParser {
 			Debug.Log("Error opening "+file+".ini");
 			Debug.LogWarning(e);
 		}
+	}
+
+	/// <summary>
+	/// Clear this instance.
+	/// </summary>
+	public void Clear(){
+		keys = new ArrayList();
+		vals = new ArrayList();
+		comments = new ArrayList();
+		subSections = new ArrayList();
 	}
 
 	/// <summary>
