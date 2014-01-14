@@ -5,7 +5,7 @@ A set of tools for use on Unity3D
   
 ---  
 
-##Current Tools:##  
+##Current Tools:  
   
 **Parsers:**  
   
@@ -17,7 +17,7 @@ This script is used to easily create and manage .ini files for your game, .ini f
 
 ---
 
-##iniPareser Usage:##  
+##iniPareser Usage:  
 
 This script can be called without being attached to a game object from another script like so:
 
@@ -61,8 +61,9 @@ Lastly, because files may not even exist yet there is a bool method to test if t
         // doesnt exist
     }
   
- ---
- ##iniParser Example:##
+ ---  
+ 
+ ##iniParser Example:
  
  If i wanted to create a settings file for example i would do:  
  
