@@ -274,10 +274,10 @@ public class iniParser {
 	/// Clear this instance.
 	/// </summary>
 	public void Clear(){
-		keys = new ArrayList();
-		vals = new ArrayList();
-		comments = new ArrayList();
-		subSections = new ArrayList();
+		keys = new List<string>();
+		vals = new List<string>();
+		comments = new List<string>();
+		subSections = new List<string>();
 	}
 
 	/// <summary>
