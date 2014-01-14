@@ -40,7 +40,7 @@ public class iniParser {
 	/// </summary>
 	/// <param name="file">Name of the file you want to load.</param>
 	public iniParser(IniFiles file){
-		load(file); 
+		Load(file); 
 	}
 
 	/// <summary>
