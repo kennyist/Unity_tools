@@ -11,8 +11,10 @@ A set of tools for use on Unity3D
   
 iniParser 
 
----
-##IniParser:##  
+---  
+
+##iniParser:  
+
 This script is used to easily create and manage .ini files for your game, .ini files are usualy used to store application settings, like Graphics and controls, but can be used for many other things as it is just a veriable storage device. This script allows you to easily add comments to each key to help anyone who may edit it aswell as providing section support for key grouping.
 
 ---
@@ -63,9 +65,9 @@ Lastly, because files may not even exist yet there is a bool method to test if t
   
  ---  
  
- ##iniParser Example:
+##iniParser Example:  
  
- If i wanted to create a settings file for example i would do:  
+If i wanted to create a settings file for example i would do:  
  
     iniParser parser = new iniParser();
     parser.Set("resolution","graphics","1920x1080");
