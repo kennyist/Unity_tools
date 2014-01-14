@@ -6,7 +6,7 @@
 */
 
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 /// <summary>
@@ -25,10 +25,10 @@ public enum IniFiles{
 /// </summary>
 public class iniParser {
 
-	private ArrayList keys = new ArrayList();
-	private ArrayList vals = new ArrayList();
-	private ArrayList comments = new ArrayList();
-	private ArrayList subSections =  new ArrayList();
+    private List<string> keys = new List<string>();
+    private List<string> vals = new List<string>();
+    private List<string> comments = new List<string>();
+    private List<string> subSections = new List<string>();
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="iniParser"/> class without loading a file.
@@ -40,7 +40,7 @@ public class iniParser {
 	/// </summary>
 	/// <param name="file">Name of the file you want to load.</param>
 	public iniParser(IniFiles file){
-		load(file); 
+		Load(file); 
 	}
 
 	/// <summary>
@@ -57,7 +57,7 @@ public class iniParser {
 	/// <param name="key">The variable name</param>
 	/// <param name="subSection">The Section this key belongs to</param>
 	/// <param name="val">The value of the variable</param>
-	public void Set(string key, string subSection, string value){
+	public void Set(string subSection, string key, string value){
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key)){
 				vals[i] = value;
@@ -79,7 +79,7 @@ public class iniParser {
 	/// <param name="subSection">The Section this key belongs to</param>
 	/// <param name="val">The value of the variable</param>
 	/// <param name="comment">The comment of the variable</param>
-	public void Set(string key, string subSection, string value, string comment){
+	public void Set(string subSection, string key, string value, string comment){
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key)){
 				vals[i] = value;
@@ -102,7 +102,7 @@ public class iniParser {
 	public string Get(string key){
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key)){
-				return vals[i].ToString();
+				return vals[i];
 			}
 		}
 		return "";
@@ -113,10 +113,10 @@ public class iniParser {
 	/// </summary>
 	/// <param name="key">Key.</param>
 	/// <param name="subSection">Sub section.</param>
-	public string Get(string key, string subSection){
+	public string Get(string subSection, string key){
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key) && subSections[i].Equals(subSection)){
-				return vals[i].ToString();
+				return vals[i];
 			}
 		} 
 		return "";
@@ -132,10 +132,10 @@ public class iniParser {
 
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key)){
-				list[0] = subSections[i].ToString();
-				list[1] = keys[i].ToString();
-				list[2] = vals[i].ToString();
-				list[3] = comments[i].ToString();
+				list[0] = subSections[i];
+				list[1] = keys[i];
+				list[2] = vals[i];
+				list[3] = comments[i];
 				return list;
 			}
 		}
@@ -165,42 +165,52 @@ public class iniParser {
 	/// </summary>
 	/// <param name="file">The file name.</param>
 	public void Save(IniFiles file){
-		StreamWriter wr = new StreamWriter(Application.dataPath + "/" + file + ".ini");
-		ArrayList noDup = new ArrayList();
-		for(int i = 0; i < subSections.Count;i++){
-			if(!noDup.Contains(subSections[i])){
-				noDup.Add(subSections[i]);
-			}
-		}
-		noDup.Sort();
-		ArrayList keysC = keys;
-		ArrayList valsC = vals;
-		ArrayList comsC = comments;
-		ArrayList subsC = subSections;
-		for(int i = 0; i < noDup.Count; i++){
-			int cur = 0;
-			while(subsC.Contains(noDup[i])){
-				int pos = subsC.IndexOf(noDup[i]);
-				if(cur == 0){
-					if(!noDup[i].Equals("")){
-						wr.WriteLine("\n["+noDup[i]+"]\n");
-					}
-				}
-				if(!comsC[pos].Equals("")){
-					string p1 = keysC[pos]+"="+valsC[pos];
-					int tabs = (60 - p1.Length) / 4;
-					wr.WriteLine(p1 + new string('\t', tabs) +"; "+comsC[pos]);
-				} else {
-					wr.WriteLine(keysC[pos]+"="+valsC[pos]);
-				}
-				subsC.RemoveAt(pos);
-				keysC.RemoveAt(pos);
-				comsC.RemoveAt(pos);
-				valsC.RemoveAt(pos);
-				cur++;
-			}
-		}
-		wr.Close();
+        using (StreamWriter wr = new StreamWriter(Application.dataPath + "/" + file + ".ini")){
+            List<string> noDup = new List<string>();
+            for (int i = 0; i < subSections.Count; i++)
+            {
+                if (!noDup.Contains(subSections[i]))
+                {
+                    noDup.Add(subSections[i]);
+                }
+            }
+            noDup.Sort();
+            List<string> keysC = keys;
+            List<string> valsC = vals;
+            List<string> comsC = comments;
+            List<string> subsC = subSections;
+            for (int i = 0; i < noDup.Count; i++)
+            {
+                int cur = 0;
+                while (subsC.Contains(noDup[i]))
+                {
+                    int pos = subsC.IndexOf(noDup[i]);
+                    if (cur == 0)
+                    {
+                        if (!noDup[i].Equals(""))
+                        {
+                            wr.WriteLine("\n[" + noDup[i] + "]\n");
+                        }
+                    }
+                    if (!comsC[pos].Equals(""))
+                    {
+                        string p1 = keysC[pos] + "=" + valsC[pos];
+                        int tabs = (60 - p1.Length) / 4;
+                        wr.WriteLine(p1 + new string('\t', tabs) + "; " + comsC[pos]);
+                    }
+                    else
+                    {
+                        wr.WriteLine(keysC[pos] + "=" + valsC[pos]);
+                    }
+                    subsC.RemoveAt(pos);
+                    keysC.RemoveAt(pos);
+                    comsC.RemoveAt(pos);
+                    valsC.RemoveAt(pos);
+                    cur++;
+                }
+            }
+        }
+    
 
 		Debug.Log(file+".ini Saved");
 	}
@@ -210,9 +220,9 @@ public class iniParser {
 	/// </summary>
 	/// <param name="file">The file name.</param>
 	public void Load(IniFiles file){
-		keys = new ArrayList();
-		vals = new ArrayList();
-		comments = new ArrayList();
+        keys = new List<string>();
+        vals = new List<string>();
+        comments = new List<string>();
 
 		string line = "", dir = Application.dataPath +"/"+ file +".ini", catagory = "";
 		int offset = 0, comment = 0, subcat = 0;
@@ -230,13 +240,12 @@ public class iniParser {
 						if(comment != -1){
 							string val = line.Substring(offset+1,(comment - (offset+1)));
 							val = val.Replace("\t","");
-							Set(line.Substring(0,offset),catagory,val,line.Substring(comment+1).TrimStart(' '));
+                            Set(catagory, line.Substring(0, offset), val, line.Substring(comment + 1).TrimStart(' ')); 
 						} else {
-							Set(line.Substring(0,offset),catagory,line.Substring(offset+1));
+                            Set(catagory, line.Substring(0, offset), line.Substring(offset + 1));
 						}
 					}
 				}
-				sr.Close();
 				Debug.Log(file + " Loaded");
 			}
 		} catch(IOException e){
