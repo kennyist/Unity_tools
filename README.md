@@ -11,9 +11,11 @@ A set of tools for use on Unity3D
   
 iniParser 
 
----
-##IniParser:##  
-This script is used to easily create and manage .ini files for your game, .ini files are usualy used to store application settings, like Graphics and controls, but can be used for many other things as it is just a veriable storage device. This script allows you to easily add comments to each key to help anyone who may edit it aswell as providing section support for key grouping.
+---  
+
+##iniParser:  
+
+This script is used to easily create and manage .ini files for your game, .ini files are usually used to store application settings, like Graphics and controls, but can be used for many other things as it is just a variable storage device. This script allows you to easily add comments to each key to help anyone who may edit it as well as providing section support for key grouping.
 
 ---
 
@@ -41,9 +43,9 @@ You can still Edit and Add keys without needing to load the file again. To load 
 To start Fetching key values you use "Get", But there are two options for this:
 
     parser.Get("KEY NAME"); // Will just fetch the first key it finds with this name
-    parser.Get("KEY NAME", "SUB SECTION"); // This should be used if you have multipul keys with the same name but in differant sections
+    parser.Get("KEY NAME", "SUB SECTION"); // This should be used if you have multiple keys with the same name but in different sections
     
-You are also able to get everything associated with the key useing:
+You are also able to get everything associated with the key using:
 
     parser.GetLine("KEY NAME"); 
     
@@ -52,8 +54,9 @@ This returns a string array of 4 values: 0 = Subsection, 1 = Key name, 2 = key V
 To remove keys you use:
 
     parser.Remove("KEY NAME");
+	parser.Remove("KEY NAME", "SUB SECTION"); // Use this if you have keys with the same name in different sections
     
-Lastly, because files may not even exist yet there is a bool method to test if the file exists:
+Because files may not even exist yet there is a bool method to test if the file exists:
 
     if(parser.DoesExist(Inifiles.FILENAME)){
         // does exist
@@ -61,11 +64,15 @@ Lastly, because files may not even exist yet there is a bool method to test if t
         // doesnt exist
     }
   
+Lastly, You can now Clear the current instance of all keys and values so you can start a new file without calling iniParser again:
+
+    parser.Clear();  
+  
  ---  
  
- ##iniParser Example:
+##iniParser Example:  
  
- If i wanted to create a settings file for example i would do:  
+If i wanted to create a settings file for example i would do:  
  
     iniParser parser = new iniParser();
     parser.Set("resolution","graphics","1920x1080");
