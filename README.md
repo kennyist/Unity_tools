@@ -29,8 +29,8 @@ This script can be called without being attached to a game object from another s
 The IniFiles is an Enum to store all your file names so they can be accessed from other scripts easily, Without the chance for entering the wrong name and creating errors.
 To start creating keys and values into the .ini file you use "Set", Set has two overloads:
 
-    parser.Set("KEY NAME", "KEY SUBSECTION", "KEY VALUE");
-    parser.Set("KEY NAME", "KEY SUBSECTION", "KEY VALUE", "KEY COMMENT");
+    parser.Set("KEY SUBSECTION", "KEY NAME", "KEY VALUE");
+    parser.Set("KEY SUBSECTION", "KEY NAME", "KEY VALUE", "KEY COMMENT");
     
 Once you have all the keys created you have to save the changes with:
 
@@ -43,7 +43,7 @@ You can still Edit and Add keys without needing to load the file again. To load 
 To start Fetching key values you use "Get", But there are two options for this:
 
     parser.Get("KEY NAME"); // Will just fetch the first key it finds with this name
-    parser.Get("KEY NAME", "SUB SECTION"); // This should be used if you have multiple keys with the same name but in different sections
+    parser.Get("SUB SECTION", "KEY NAME"); // This should be used if you have multiple keys with the same name but in different sections
     
 You are also able to get everything associated with the key using:
 
@@ -54,7 +54,7 @@ This returns a string array of 4 values: 0 = Subsection, 1 = Key name, 2 = key V
 To remove keys you use:
 
     parser.Remove("KEY NAME");
-	parser.Remove("KEY NAME", "SUB SECTION"); // Use this if you have keys with the same name in different sections
+	parser.Remove("SUB SECTION", "KEY NAME"); // Use this if you have keys with the same name in different sections
     
 Because files may not even exist yet there is a bool method to test if the file exists:
 

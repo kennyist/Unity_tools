@@ -167,7 +167,7 @@ public class iniParser {
 	/// </summary>
 	/// <param name="key">The key name</param>
 	/// <param name="subSection">Sub section name.</param>
-	public void Remove(string key, string subSection){
+	public void Remove( string subSection, string key){
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key) && subSections[i].Equals(subSection)){
 				subSections.RemoveAt(i);
