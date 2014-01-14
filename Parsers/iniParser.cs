@@ -3,6 +3,7 @@
 	Author: Tristan 'Kennyist' Cunningham - www.tristanjc.com
 	Date: 13/04/2014
 	License: Creative Comments ShareAlike 3.0 - https://creativecommons.org/licenses/by-sa/3.0/
+	Contributors: xenonsin
 */
 
 using UnityEngine;
@@ -25,10 +26,10 @@ public enum IniFiles{
 /// </summary>
 public class iniParser {
 
-    private List<string> keys = new List<string>();
-    private List<string> vals = new List<string>();
-    private List<string> comments = new List<string>();
-    private List<string> subSections = new List<string>();
+	private List<string> keys = new List<string>();
+	private List<string> vals = new List<string>();
+	private List<string> comments = new List<string>();
+	private List<string> subSections = new List<string>();
 
 	private int commentMargin = 60; // How many characters from the line start should the comment show
 
@@ -215,7 +216,7 @@ public class iniParser {
                     if (!comsC[pos].Equals(""))
                     {
                         string p1 = keysC[pos] + "=" + valsC[pos];
-                        int tabs = (60 - p1.Length) / 4;
+                        int tabs = (commentMargin - p1.Length) / 4;
                         wr.WriteLine(p1 + new string('\t', tabs) + "; " + comsC[pos]);
                     }
                     else
