@@ -131,7 +131,7 @@ public class iniParser {
 	/// <returns>String array containing the 3 values. 0 = subsection, 1 = key, 2 = value, 3 = comment</returns>
 	/// <param name="key">The variable name.</param>
 	public string[] GetLine(string key){
-		string[] list = new string[3];
+		string[] list = new string[4];
 
 		for(int i = 0; i < keys.Count; i++){
 			if(keys[i].Equals(key)){
