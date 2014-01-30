@@ -26,7 +26,7 @@ public class Interaction : MonoBehaviour {
     [System.Serializable]
     public class Interactable
     {
-        public enum Type { HoldForTime }
+        public enum Type { Press, HoldForTime }
         public Type type; 
         public float holdTime = 3f;
     }
@@ -38,13 +38,11 @@ public class Interaction : MonoBehaviour {
     private GameObject hitOBJ;
     private bool isHit;
     private float holdTime;
-    private float delay;
 
     void start()
     {
         hitOBJ = null;
         holdTime = 0.0f;
-        delay = Time.time;
     }
 	
 	void FixedUpdate () {
@@ -54,22 +52,22 @@ public class Interaction : MonoBehaviour {
         }
         else
         {
-            if (interactable.type == Interactable.Type.HoldForTime)
+            if (interactable.type == Interactable.Type.HoldForTime && holdTime >= interactable.holdTime)
             {
-                if (holdTime >= interactable.holdTime)
-                {
-                    hitOBJ.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
-                }
+                hitOBJ.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
+            }
+            else if (interactable.type == Interactable.Type.Press && isHit)
+            {
+                hitOBJ.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
             }
 
             if (isHit)
             {
                 holdTime += Time.deltaTime;
-                Debug.Log(holdTime + " : " + delay);
+                Debug.Log(holdTime);
             }
             else
             {
-                delay = Time.time;
                 holdTime = 0.0f;
             }
         }
