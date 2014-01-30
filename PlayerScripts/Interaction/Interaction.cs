@@ -37,8 +37,11 @@ public class Interaction : MonoBehaviour {
     public Interactable interactable = new Interactable();
 
     private GameObject hitOBJ;
+    private GameObject lastOBJ;
     private bool isHit;
-    private float holdTime;
+    
+    [HideInInspector]
+    public float holdTime;
 
     void start()
     {
@@ -46,7 +49,7 @@ public class Interaction : MonoBehaviour {
         holdTime = 0.0f;
     }
 	
-	void FixedUpdate () {
+	void Update () {
         if (type == Type.Caster)
         {
             CastRay();
@@ -79,9 +82,10 @@ public class Interaction : MonoBehaviour {
         isHit = hit;
     }
 
+    RaycastHit hit;
+
     void CastRay()
     {
-        RaycastHit hit;
 
         if (Physics.Raycast(caster.rayStartLocation.position, caster.rayStartLocation.forward, out hit, caster.castDistance, caster.layerMask))
         {
@@ -100,12 +104,18 @@ public class Interaction : MonoBehaviour {
                 hitOBJ = null;
             }
         }
-        else if (hitOBJ != null)
+        else
         {
-            hitOBJ.SendMessage("InteractionHit", false, SendMessageOptions.DontRequireReceiver);
-            hitOBJ = null;
+            if (lastOBJ != null)
+            {
+                lastOBJ.SendMessage("InteractionHit", false, SendMessageOptions.DontRequireReceiver);
+                lastOBJ = null;
+            }
         }
 
-        Debug.DrawRay(caster.rayStartLocation.position, caster.rayStartLocation.forward * caster.castDistance, Color.green);
+        if (hitOBJ != null)
+        {
+            lastOBJ = hitOBJ;
+        }
     }
 }
