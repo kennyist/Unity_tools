@@ -2,7 +2,7 @@
 using System.Collections;
 
 /*        
-        .Ini file Parser
+        Player Interaction / Interactable
         Author: Tristan 'Kennyist' Cunningham - www.tristanjc.com
         Date: 29/01/2014
         License: Creative Commons ShareAlike 3.0 - https://creativecommons.org/licenses/by-sa/3.0/
@@ -106,6 +106,6 @@ public class Interaction : MonoBehaviour {
             hitOBJ = null;
         }
 
-        Debug.DrawRay(caster.rayStartLocation.position, caster.rayStartLocation.forward, Color.green);
+        Debug.DrawRay(caster.rayStartLocation.position, caster.rayStartLocation.forward * caster.castDistance, Color.green);
     }
 }
