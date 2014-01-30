@@ -1,6 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*        
+        .Ini file Parser
+        Author: Tristan 'Kennyist' Cunningham - www.tristanjc.com
+        Date: 29/01/2014
+        License: Creative Commons ShareAlike 3.0 - https://creativecommons.org/licenses/by-sa/3.0/
+*/
+
+
+/* ------------------ In development ---------------- */
+// Early version
+
 public class Interaction : MonoBehaviour {
     public enum Type { Interactable, Caster }
 
