@@ -29,6 +29,7 @@ public class Interaction : MonoBehaviour {
         public enum Type { Press, HoldForTime }
         public Type type; 
         public float holdTime = 3f;
+        public string InputButton = "f";
     }
 
     public Type type;
@@ -54,14 +55,14 @@ public class Interaction : MonoBehaviour {
         {
             if (interactable.type == Interactable.Type.HoldForTime && holdTime >= interactable.holdTime)
             {
-                hitOBJ.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
+                gameObject.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
             }
-            else if (interactable.type == Interactable.Type.Press && isHit)
+            else if (interactable.type == Interactable.Type.Press && isHit && Input.GetKeyDown(interactable.InputButton))
             {
-                hitOBJ.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
+                gameObject.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
             }
 
-            if (isHit)
+            if (isHit && Input.GetKey(interactable.InputButton))
             {
                 holdTime += Time.deltaTime;
                 Debug.Log(holdTime);
@@ -75,7 +76,6 @@ public class Interaction : MonoBehaviour {
 
     void InteractionHit(bool hit)
     {
-        Debug.Log("Hit received");
         isHit = hit;
     }
 
@@ -91,7 +91,6 @@ public class Interaction : MonoBehaviour {
             {
                 if (hitOBJ.GetComponent<Interaction>().type == Type.Interactable)
                 {
-                    Debug.Log("Hit: " + hitOBJ.name);
                     hitOBJ.SendMessage("InteractionHit", true, SendMessageOptions.DontRequireReceiver);
                 }
             }
