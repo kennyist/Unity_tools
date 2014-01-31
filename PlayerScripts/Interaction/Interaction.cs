@@ -4,7 +4,7 @@ using System.Collections;
 /*        
         Player Interaction / Interactable
         Author: Tristan 'Kennyist' Cunningham - www.tristanjc.com
-        Date: 29/01/2014
+        Date: 31/01/2014
         License: Creative Commons ShareAlike 3.0 - https://creativecommons.org/licenses/by-sa/3.0/
 */
 
@@ -26,10 +26,11 @@ public class Interaction : MonoBehaviour {
     [System.Serializable]
     public class Interactable
     {
-        public enum Type { Press, HoldForTime }
+        public enum Type { Press, HoldForTime, HoldForTimeSlowReset }
         public Type type; 
         public float holdTime = 3f;
         public string InputButton = "f";
+        public float slowResetTime = 0.1f;
     }
 
     public Type type;
@@ -56,7 +57,7 @@ public class Interaction : MonoBehaviour {
         }
         else
         {
-            if (interactable.type == Interactable.Type.HoldForTime && holdTime >= interactable.holdTime)
+            if ((interactable.type == Interactable.Type.HoldForTime || interactable.type == Interactable.Type.HoldForTimeSlowReset) && holdTime >= interactable.holdTime)
             {
                 gameObject.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
             }
@@ -68,11 +69,27 @@ public class Interaction : MonoBehaviour {
             if (isHit && Input.GetKey(interactable.InputButton))
             {
                 holdTime += Time.deltaTime;
+
+                if (holdTime > interactable.holdTime)
+                {
+                    holdTime = interactable.holdTime;
+                }
+
                 Debug.Log(holdTime);
             }
             else
             {
-                holdTime = 0.0f;
+                if (interactable.type != Interactable.Type.HoldForTimeSlowReset)
+                {
+                    holdTime = 0.0f;
+                }
+                else
+                {
+                    if (holdTime > 0.0f)
+                    {
+                        holdTime -= Time.deltaTime * interactable.slowResetTime;
+                    }
+                }
             }
         }
 	}
