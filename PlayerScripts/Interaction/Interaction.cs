@@ -41,9 +41,7 @@ public class Interaction : MonoBehaviour {
     private GameObject lastOBJ;
     private bool isHit;
     private RaycastHit hit;
-    
-    [HideInInspector]
-    public float holdTime;
+    private float holdTime;
 
     void start()
     {
@@ -142,4 +140,43 @@ public class Interaction : MonoBehaviour {
             lastOBJ = hitOBJ;
         }
     }
+
+    /// <summary>
+    /// Get the time the button has been held for.
+    /// </summary>
+    /// <returns>Time button has been held for while on this object</returns>
+    public float CurrentHeldTime()
+    {
+        return holdTime;
+    }
+
+    /// <summary>
+    /// Get the total hold time needed
+    /// </summary>
+    /// <returns>Total hold time needed</returns>
+    public float HoldTime()
+    {
+        return interactable.holdTime;
+    }
+
+
+    /// <summary>
+    /// Get the input button needed
+    /// </summary>
+    /// <returns>Input button</returns>
+    public string InputButton()
+    {
+        return interactable.InputButton;
+    }
+
+
+    /// <summary>
+    /// Get the interaction type for this object
+    /// </summary>
+    /// <returns>Interaction type</returns>
+    public Interactable.Type InteractionType()
+    {
+        return interactable.type;
+    }
+
 }

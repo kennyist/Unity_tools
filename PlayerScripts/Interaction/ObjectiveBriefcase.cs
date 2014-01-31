@@ -32,13 +32,13 @@ public class ObjectiveBriefcase : MonoBehaviour {
 
     void OnGUI()
     {
-        float length = interact.holdTime / interact.interactable.holdTime;
+        float length = interact.CurrentHeldTime() / interact.HoldTime();
 
         if(isHit && !complete){
-            GUI.Box(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "hold "+ interact.interactable.InputButton);
+            GUI.Box(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "hold "+ interact.InputButton());
         }
 
-         if (interact.holdTime > 0.0f && !complete)
+         if (interact.CurrentHeldTime() > 0.0f && !complete)
         {
             GUI.DrawTexture(new Rect(Screen.width / 2 - 102, Screen.height / 2 + 48, 204, 24), bgTexture);
             GUI.DrawTexture(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 200 * length, 20), barTexture);
