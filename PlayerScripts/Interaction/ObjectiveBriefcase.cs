@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObjectiveBreifcase : MonoBehaviour {
+public class ObjectiveBriefcase : MonoBehaviour {
 
 
     /// <summary>

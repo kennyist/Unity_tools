@@ -30,7 +30,7 @@ public class Interaction : MonoBehaviour {
         public Type type; 
         public float holdTime = 3f;
         public string InputButton = "f";
-        public float slowResetTime = 0.1f;
+        public float slowResetMultiplier = 0.1f;
     }
 
     public Type type;
@@ -40,6 +40,7 @@ public class Interaction : MonoBehaviour {
     private GameObject hitOBJ;
     private GameObject lastOBJ;
     private bool isHit;
+    private RaycastHit hit;
     
     [HideInInspector]
     public float holdTime;
@@ -74,8 +75,6 @@ public class Interaction : MonoBehaviour {
                 {
                     holdTime = interactable.holdTime;
                 }
-
-                Debug.Log(holdTime);
             }
             else
             {
@@ -87,7 +86,7 @@ public class Interaction : MonoBehaviour {
                 {
                     if (holdTime > 0.0f)
                     {
-                        holdTime -= Time.deltaTime * interactable.slowResetTime;
+                        holdTime -= Time.deltaTime * interactable.slowResetMultiplier;
                     }
                 }
             }
@@ -98,8 +97,6 @@ public class Interaction : MonoBehaviour {
     {
         isHit = hit;
     }
-
-    RaycastHit hit;
 
     void CastRay()
     {
