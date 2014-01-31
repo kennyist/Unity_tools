@@ -108,6 +108,16 @@ public class Interaction : MonoBehaviour {
         {
             hitOBJ = hit.collider.gameObject;
 
+            if (lastOBJ != null)
+            {
+                if (hitOBJ != lastOBJ)
+                {
+                    Debug.Log("not equal");
+                    lastOBJ.SendMessage("InteractionHit", false, SendMessageOptions.DontRequireReceiver);
+                    lastOBJ = null;
+                }
+            }
+
             if (hitOBJ.GetComponent<Interaction>() != null && hitOBJ != gameObject)
             {
                 if (hitOBJ.GetComponent<Interaction>().type == Type.Interactable)

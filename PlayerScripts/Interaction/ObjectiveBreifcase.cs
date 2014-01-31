@@ -3,11 +3,16 @@ using System.Collections;
 
 public class ObjectiveBreifcase : MonoBehaviour {
 
-    Interaction interact;
+
+    /// <summary>
+    /// A basic example script, using the interaction script to create a "Steal the briefcase" interation object
+    /// </summary>
+    
     
     public Texture2D barTexture;
     public Texture2D bgTexture;
 
+    Interaction interact;
     bool isHit = false, complete = false;
 
     void Start()
