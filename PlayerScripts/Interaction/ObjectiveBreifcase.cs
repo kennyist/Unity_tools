@@ -5,7 +5,6 @@ public class ObjectiveBreifcase : MonoBehaviour {
 
     Interaction interact;
     
-    public Camera cam;
     public Texture2D barTexture;
     public Texture2D bgTexture;
 
