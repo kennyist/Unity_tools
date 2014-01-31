@@ -22,18 +22,18 @@ public class InteractPlayer : MonoBehaviour
     private GameObject lastOBJ;
     private RaycastHit hit;
 
-    // Use this for initialization
     void Start()
     {
         hitOBJ = null;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Physics.Raycast(rayStartLocation.position, rayStartLocation.forward, out hit, castDistance, layerMask))
         {
             hitOBJ = hit.collider.gameObject;
+
+            Debug.DrawRay(rayStartLocation.position, hit.point, Color.blue);
 
             if (lastOBJ != null)
             {
@@ -56,6 +56,8 @@ public class InteractPlayer : MonoBehaviour
         }
         else
         {
+            Debug.DrawRay(rayStartLocation.position, rayStartLocation.forward * castDistance, Color.blue);
+
             if (lastOBJ != null)
             {
                 lastOBJ.SendMessage("InteractionHit", false, SendMessageOptions.DontRequireReceiver);
