@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InteractObject : MonoBehaviour
+public class InteractableObject : MonoBehaviour
 {
 
     /*        
@@ -69,6 +69,7 @@ public class InteractObject : MonoBehaviour
     void InteractionHit(bool hit)
     {
         isHit = hit;
+        Debug.Log(hit);
     }
 
     /// <summary>

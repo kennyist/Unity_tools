@@ -12,12 +12,12 @@ public class ObjectiveBriefcase : MonoBehaviour {
     public Texture2D barTexture;
     public Texture2D bgTexture;
 
-    Interaction interact;
+    InteractableObject interact;
     bool isHit = false, complete = false;
 
     void Start()
     {
-        interact = gameObject.GetComponent<Interaction>();
+        interact = gameObject.GetComponent<InteractableObject>();
     }
 
     void InteractionHit(bool hit)
@@ -32,10 +32,10 @@ public class ObjectiveBriefcase : MonoBehaviour {
 
     void OnGUI()
     {
-        float length = interact.CurrentHeldTime() / interact.HoldTime();
+        float length = interact.CurrentHeldTime() / interact.TotalHoldTime;
 
         if(isHit && !complete){
-            GUI.Box(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "hold "+ interact.InputButton());
+            GUI.Box(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "hold "+ interact.InputButton);
         }
 
          if (interact.CurrentHeldTime() > 0.0f && !complete)

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InteractPlayer : MonoBehaviour {
+public class InteractPlayer : MonoBehaviour
+{
 
     /*        
         Interact Player
@@ -20,15 +21,16 @@ public class InteractPlayer : MonoBehaviour {
     private GameObject hitOBJ;
     private GameObject lastOBJ;
     private RaycastHit hit;
-    private float holdTime;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         hitOBJ = null;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (Physics.Raycast(rayStartLocation.position, rayStartLocation.forward, out hit, castDistance, layerMask))
         {
             hitOBJ = hit.collider.gameObject;
@@ -37,13 +39,12 @@ public class InteractPlayer : MonoBehaviour {
             {
                 if (hitOBJ != lastOBJ)
                 {
-                    Debug.Log("not equal");
                     lastOBJ.SendMessage("InteractionHit", false, SendMessageOptions.DontRequireReceiver);
                     lastOBJ = null;
                 }
             }
 
-            if (hitOBJ.GetComponent<Interaction>() != null && hitOBJ != gameObject)
+            if (hitOBJ.GetComponent<InteractableObject>() != null && hitOBJ != gameObject)
             {
                 hitOBJ.SendMessage("InteractionHit", true, SendMessageOptions.DontRequireReceiver);
             }
@@ -66,5 +67,5 @@ public class InteractPlayer : MonoBehaviour {
         {
             lastOBJ = hitOBJ;
         }
-	}
+    }
 }
