@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InteractObject : MonoBehaviour {
+public class InteractObject : MonoBehaviour
+{
 
     /*        
         Interact Object
@@ -22,11 +23,13 @@ public class InteractObject : MonoBehaviour {
     private bool isHit;
     private float holdTime;
 
-	void Start () {
+    void Start()
+    {
         holdTime = 0.0f;
-	}
-	
-	void Update () {
+    }
+
+    void Update()
+    {
         if ((type == Type.HoldForTime || type == Type.HoldForTimeSlowReset) && holdTime >= TotalHoldTime)
         {
             gameObject.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
@@ -61,7 +64,7 @@ public class InteractObject : MonoBehaviour {
         }
 
         Debug.Log(holdTime);
-	}
+    }
 
     void InteractionHit(bool hit)
     {
@@ -75,23 +78,5 @@ public class InteractObject : MonoBehaviour {
     public float CurrentHeldTime()
     {
         return holdTime;
-    }
-
-    /// <summary>
-    /// Get the total hold time needed
-    /// </summary>
-    /// <returns>Total hold time needed</returns>
-    public float HoldTime()
-    {
-        return TotalHoldTime;
-    }
-
-    /// <summary>
-    /// Get the interaction type for this object
-    /// </summary>
-    /// <returns>Interaction type</returns>
-    public Type InteractionType()
-    {
-        return type;
     }
 }
