@@ -30,6 +30,7 @@ public class ObjectiveBriefcase : MonoBehaviour {
     void InteractableComplete()
     {
         complete = true;
+        interact.Complete -= InteractableComplete;
     }
 
     void OnGUI()
