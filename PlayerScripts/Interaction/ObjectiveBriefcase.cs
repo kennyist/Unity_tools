@@ -15,12 +15,14 @@ public class ObjectiveBriefcase : MonoBehaviour {
     InteractableObject interact;
     bool isHit = false, complete = false;
 
-    void Start()
+    void Awake()
     {
+        InteractPlayer.OnChange += HitEvent;
         interact = gameObject.GetComponent<InteractableObject>();
+        interact.Complete += InteractableComplete;
     }
 
-    void InteractionHit(bool hit)
+    void HitEvent(bool hit)
     {
         isHit = hit;
     }

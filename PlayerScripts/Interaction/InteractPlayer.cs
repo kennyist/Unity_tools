@@ -15,17 +15,16 @@ public class InteractPlayer : MonoBehaviour
     /* ------------------ In development ---------------- */
     // Early version
 
+    public delegate void HitEvent(bool h);
+    public static event HitEvent OnChange;
+
     public LayerMask layerMask;
     public Transform rayStartLocation;
     public float castDistance = 1f;
     private GameObject hitOBJ;
     private GameObject lastOBJ;
     private RaycastHit hit;
-
-    void Start()
-    {
-        hitOBJ = null;
-    }
+    private bool isHit = false;
 
     void Update()
     {
@@ -39,18 +38,18 @@ public class InteractPlayer : MonoBehaviour
             {
                 if (hitOBJ != lastOBJ)
                 {
-                    lastOBJ.SendMessage("InteractionHit", false, SendMessageOptions.DontRequireReceiver);
+                    Change(false);
                     lastOBJ = null;
                 }
             }
 
             if (hitOBJ.GetComponent<InteractableObject>() != null && hitOBJ != gameObject)
             {
-                hitOBJ.SendMessage("InteractionHit", true, SendMessageOptions.DontRequireReceiver);
+                Change(true);
             }
             else
             {
-                hitOBJ.SendMessage("InteractionHit", false, SendMessageOptions.DontRequireReceiver);
+                Change(false);
                 hitOBJ = null;
             }
         }
@@ -60,7 +59,7 @@ public class InteractPlayer : MonoBehaviour
 
             if (lastOBJ != null)
             {
-                lastOBJ.SendMessage("InteractionHit", false, SendMessageOptions.DontRequireReceiver);
+                Change(false);
                 lastOBJ = null;
             }
         }
@@ -68,6 +67,16 @@ public class InteractPlayer : MonoBehaviour
         if (hitOBJ != null)
         {
             lastOBJ = hitOBJ;
+        }
+    }
+
+    void Change(bool b)
+    {
+        if (b != isHit)
+        {
+            isHit = b;
+            if(OnChange != null)
+                OnChange(b);
         }
     }
 }

@@ -15,28 +15,32 @@ public class InteractableObject : MonoBehaviour
     /* ------------------ In development ---------------- */
     // Early version
 
+    public delegate void OnComplete();
+    public event OnComplete Complete; 
+
     public enum Type { Press, HoldForTime, HoldForTimeSlowReset }
     public Type type;
     public float TotalHoldTime = 3f;
     public string InputButton = "f";
     public float slowResetMultiplier = 0.1f;
     private bool isHit;
-    private float holdTime;
+    private float holdTime = 0.0f;
 
-    void Start()
-    {
-        holdTime = 0.0f;
+    void Awake() { InteractPlayer.OnChange += HitEvent; }
+
+    void HitEvent(bool b){
+        isHit = b;
     }
 
     void Update()
     {
         if ((type == Type.HoldForTime || type == Type.HoldForTimeSlowReset) && holdTime >= TotalHoldTime)
         {
-            gameObject.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
+            Complete();
         }
         else if (type == Type.Press && isHit && Input.GetKeyDown(InputButton))
         {
-            gameObject.SendMessage("InteractableComplete", SendMessageOptions.DontRequireReceiver);
+            Complete();
         }
 
         if (isHit && Input.GetKey(InputButton))
@@ -62,14 +66,6 @@ public class InteractableObject : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log(holdTime);
-    }
-
-    void InteractionHit(bool hit)
-    {
-        isHit = hit;
-        Debug.Log(hit);
     }
 
     /// <summary>
