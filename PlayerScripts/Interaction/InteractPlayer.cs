@@ -15,7 +15,7 @@ public class InteractPlayer : MonoBehaviour
     /* ------------------ In development ---------------- */
     // Early version
 
-    public delegate void HitEvent(bool h);
+    public delegate void HitEvent(bool h, GameObject g);
     public static event HitEvent OnChange;
 
     public LayerMask layerMask;
@@ -38,18 +38,18 @@ public class InteractPlayer : MonoBehaviour
             {
                 if (hitOBJ != lastOBJ)
                 {
-                    Change(false);
+                    Change(false, null);
                     lastOBJ = null;
                 }
             }
 
             if (hitOBJ.GetComponent<InteractableObject>() != null && hitOBJ != gameObject)
             {
-                Change(true);
+                Change(true, hitOBJ);
             }
             else
             {
-                Change(false);
+                Change(false, null);
                 hitOBJ = null;
             }
         }
@@ -59,7 +59,7 @@ public class InteractPlayer : MonoBehaviour
 
             if (lastOBJ != null)
             {
-                Change(false);
+                Change(false, lastOBJ);
                 lastOBJ = null;
             }
         }
@@ -70,13 +70,13 @@ public class InteractPlayer : MonoBehaviour
         }
     }
 
-    void Change(bool b)
+    void Change(bool b, GameObject g)
     {
         if (b != isHit)
         {
             isHit = b;
             if(OnChange != null)
-                OnChange(b);
+                OnChange(b,g);
         }
     }
 }

@@ -22,9 +22,12 @@ public class ObjectiveBriefcase : MonoBehaviour {
         interact.Complete += InteractableComplete;
     }
 
-    void HitEvent(bool hit)
+    void HitEvent(bool hit, GameObject g)
     {
-        isHit = hit;
+        if (g == gameObject)
+        {
+            isHit = hit;
+        }
     }
 
     void InteractableComplete()

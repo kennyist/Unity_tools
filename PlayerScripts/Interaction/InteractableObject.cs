@@ -28,8 +28,11 @@ public class InteractableObject : MonoBehaviour
 
     void Awake() { InteractPlayer.OnChange += HitEvent; }
 
-    void HitEvent(bool b){
-        isHit = b;
+    void HitEvent(bool b, GameObject g){
+        if (gameObject == g)
+        {
+            isHit = b;
+        }
     }
 
     void Update()
