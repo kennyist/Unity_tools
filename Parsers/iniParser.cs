@@ -3,7 +3,7 @@
 	Author: Tristan 'Kennyist' Cunningham - www.tristanjc.com
 	Date: 13/01/2014
 	License: Creative Commons ShareAlike 3.0 - https://creativecommons.org/licenses/by-sa/3.0/
-	Gihub Contributors: xenonsin, nitz
+	Github Contributors: xenonsin, nitz
 */
 
 using UnityEngine;
